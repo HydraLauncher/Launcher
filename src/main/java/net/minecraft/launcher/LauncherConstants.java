@@ -114,7 +114,7 @@ public class LauncherConstants
         
         public LauncherProperties() {
             this.environment = LauncherEnvironment.PRODUCTION;
-            this.versionManifest = LauncherConstants.constantURL("https://launchermeta.mojang.com/mc/game/version_manifest.json");
+            this.versionManifest = LauncherConstants.constantURL("https://launchermeta.gethydra.org/mc/game/version_manifest.json");
         }
         
         public LauncherEnvironment getEnvironment() {
