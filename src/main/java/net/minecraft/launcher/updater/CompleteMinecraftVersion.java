@@ -369,6 +369,7 @@ public class CompleteMinecraftVersion implements CompleteVersion
                 builder.withArguments(substitutor.replace("-Dminecraft.launcher.brand=${launcher_name}"));
                 builder.withArguments(substitutor.replace("-Dminecraft.launcher.version=${launcher_version}"));
                 builder.withArguments(substitutor.replace("-Dminecraft.client.jar=${primary_jar}"));
+                builder.withArguments(substitutor.replace("-javaagent:${java_agent_jar}"));
                 builder.withArguments("-cp", substitutor.replace("${classpath}"));
             }
         }

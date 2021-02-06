@@ -31,6 +31,8 @@ import java.util.zip.*;
 import java.util.*;
 import net.minecraft.launcher.*;
 import com.mojang.launcher.versions.*;
+import org.gethydra.launcher.TweakerLibraries;
+
 import java.io.*;
 
 public class MinecraftGameRunner extends AbstractGameRunner implements GameProcessRunnable
@@ -226,6 +228,10 @@ public class MinecraftGameRunner extends AbstractGameRunner implements GameProce
     
     public StrSubstitutor createArgumentsSubstitutor(final CompleteMinecraftVersion version, final Profile selectedProfile, final File gameDirectory, final File assetsDirectory, final UserAuthentication authentication) {
         final Map<String, String> map = new HashMap<String, String>();
+
+        //TODO: hydra
+        map.put("java_agent_jar", new File(new File(gameDirectory, "libraries"), TweakerLibraries.byteBuddyAgent.getArtifactPath()).getAbsolutePath());
+
         map.put("auth_access_token", authentication.getAuthenticatedToken());
         map.put("user_properties", new GsonBuilder().registerTypeAdapter(PropertyMap.class, new LegacyPropertyMapSerializer()).create().toJson(authentication.getUserProperties()));
         map.put("user_property_map", new GsonBuilder().registerTypeAdapter(PropertyMap.class, new PropertyMap.Serializer()).create().toJson(authentication.getUserProperties()));
