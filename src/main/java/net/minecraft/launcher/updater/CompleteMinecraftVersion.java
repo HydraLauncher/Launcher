@@ -18,6 +18,7 @@ import com.google.common.base.*;
 import com.mojang.launcher.game.process.*;
 import org.apache.commons.lang3.text.*;
 import org.apache.logging.log4j.*;
+import org.gethydra.launcher.TweakerLibraries;
 
 public class CompleteMinecraftVersion implements CompleteVersion
 {
@@ -132,6 +133,11 @@ public class CompleteMinecraftVersion implements CompleteVersion
     
     public Collection<File> getClassPath(final OperatingSystem os, final File base, final CompatibilityRule.FeatureMatcher featureMatcher) {
         final Collection<Library> libraries = this.getRelevantLibraries(featureMatcher);
+
+        libraries.add(TweakerLibraries.byteBuddy);
+        libraries.add(TweakerLibraries.byteBuddyAgent);
+        libraries.add(TweakerLibraries.hydraTweaker);
+
         final Collection<File> result = new ArrayList<File>();
         for (final Library library : libraries) {
             if (library.getNatives() == null) {
@@ -345,6 +351,9 @@ public class CompleteMinecraftVersion implements CompleteVersion
                 if (featureMatcher.hasFeature("has_custom_resolution", true)) {
                     builder.withArguments("--width", substitutor.replace("${resolution_width}"), "--height", substitutor.replace("${resolution_height}"));
                 }
+
+                //TODO: hydra (tweaker)
+                builder.withArguments("--tweakClass", "org.gethydra.tweaker.HydraTweaker");
             }
             else if (type == ArgumentType.JVM) {
                 if (OperatingSystem.getCurrentPlatform() == OperatingSystem.WINDOWS) {

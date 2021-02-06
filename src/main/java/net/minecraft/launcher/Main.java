@@ -4,8 +4,9 @@ import javax.swing.*;
 import javax.imageio.*;
 import java.awt.*;
 import java.net.*;
+
 import joptsimple.*;
-import java.util.*;
+
 import java.io.*;
 import java.util.List;
 
@@ -15,13 +16,15 @@ import org.apache.logging.log4j.*;
 public class Main
 {
     private static final Logger LOGGER;
-    
-    public static void main(final String[] args) {
+
+    public static void main(final String[] args)
+    {
         Main.LOGGER.debug("main() called!");
         startLauncher(args);
     }
-    
-    private static void startLauncher(final String[] args) {
+
+    private static void startLauncher(final String[] args)
+    {
         final OptionParser parser = new OptionParser();
         parser.allowsUnrecognizedOptions();
         parser.accepts("winTen");
@@ -33,11 +36,12 @@ public class Main
         final List<String> leftoverArgs = optionSet.valuesOf(nonOption);
         final String hostName = optionSet.valueOf(proxyHostOption);
         Proxy proxy = Proxy.NO_PROXY;
-        if (hostName != null) {
-            try {
+        if (hostName != null)
+        {
+            try
+            {
                 proxy = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(hostName, optionSet.valueOf(proxyPortOption)));
-            }
-            catch (Exception ex) {}
+            } catch (Exception ex) {}
         }
         final File workingDirectory = optionSet.valueOf(workDirOption);
         workingDirectory.mkdirs();
@@ -46,56 +50,62 @@ public class Main
         final JFrame frame = new JFrame();
         frame.setTitle("Hydra Launcher " + LauncherConstants.getVersionName() + LauncherConstants.PROPERTIES.getEnvironment().getTitle());
         frame.setPreferredSize(new Dimension(900, 580));
-        try {
+        try
+        {
             final InputStream in = Launcher.class.getResourceAsStream("/favicon.png");
-            if (in != null) {
+            if (in != null)
                 frame.setIconImage(ImageIO.read(in));
-            }
-        }
-        catch (IOException ex2) {}
+        } catch (IOException ex2) {}
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        if (optionSet.has("winTen")) {
+        if (optionSet.has("winTen"))
+        {
             System.setProperty("os.name", "Windows 10");
             System.setProperty("os.version", "10.0");
         }
         Main.LOGGER.debug("Starting up launcher.");
         final Launcher launcher = new Launcher(frame, workingDirectory, finalProxy, null, leftoverArgs.toArray(new String[leftoverArgs.size()]), 100);
-        if (optionSet.has("winTen")) {
+        if (optionSet.has("winTen"))
             launcher.setWinTenHack();
-        }
         frame.setLocationRelativeTo(null);
         Main.LOGGER.debug("End of main.");
     }
-    
-    public static File getWorkingDirectory() {
+
+    public static File getWorkingDirectory()
+    {
         final String userHome = System.getProperty("user.home", ".");
         File workingDirectory = null;
-        switch (OperatingSystem.getCurrentPlatform()) {
-            case LINUX: {
+        switch (OperatingSystem.getCurrentPlatform())
+        {
+            case LINUX:
+            {
                 workingDirectory = new File(userHome, ".hydra/");
                 break;
             }
-            case WINDOWS: {
+            case WINDOWS:
+            {
                 final String applicationData = System.getenv("APPDATA");
                 final String folder = (applicationData != null) ? applicationData : userHome;
                 workingDirectory = new File(folder, ".hydra/");
                 break;
             }
-            case OSX: {
+            case OSX:
+            {
                 workingDirectory = new File(userHome, "Library/Application Support/hydra");
                 break;
             }
-            default: {
+            default:
+            {
                 workingDirectory = new File(userHome, "hydra/");
                 break;
             }
         }
         return workingDirectory;
     }
-    
-    static {
+
+    static
+    {
         LOGGER = LogManager.getLogger();
     }
 }

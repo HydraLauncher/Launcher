@@ -21,11 +21,12 @@ import net.minecraft.launcher.game.*;
 import com.mojang.launcher.versions.*;
 import com.google.common.collect.*;
 import org.apache.logging.log4j.*;
+import org.gethydra.launcher.HydraVersionList;
 
 public class Launcher
 {
     private static Launcher INSTANCE;
-    private static final Logger LOGGER;
+    public static final Logger LOGGER;
     private final com.mojang.launcher.Launcher launcher;
     private final Integer bootstrapVersion;
     private final MinecraftUserInterface userInterface;
@@ -69,7 +70,19 @@ public class Launcher
         Launcher.LOGGER.info("System.getProperty('sun.arch.data.model') == '" + System.getProperty("sun.arch.data.model") + "'");
         Launcher.LOGGER.info("proxy == " + proxy);
         this.launchDispatcher = new GameLaunchDispatcher(this, this.processArgs(args));
-        this.launcher = new com.mojang.launcher.Launcher(this.userInterface, workingDirectory, proxy, proxyAuth, new MinecraftVersionManager(new LocalVersionList(workingDirectory), new RemoteVersionList(LauncherConstants.PROPERTIES.getVersionManifest(), proxy)), Agent.MINECRAFT, MinecraftReleaseTypeFactory.instance(), 21);
+
+        RemoteVersionList remoteVersionList = new RemoteVersionList(LauncherConstants.PROPERTIES.getVersionManifest(), proxy);
+
+        try
+        {
+            //HydraVersionList hydraVersionList = this.gson.fromJson(Http.performGet(new URL("https://launchermeta.gethydra.org/version_manifest.json"), proxy), HydraVersionList.class);
+            //remoteVersionList.getVersions().addAll(hydraVersionList.versions);
+            //Launcher.LOGGER.info(String.format("Loaded %s version(s) from Hydra manifest", hydraVersionList.versions.size()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        this.launcher = new com.mojang.launcher.Launcher(this.userInterface, workingDirectory, proxy, proxyAuth, new MinecraftVersionManager(new LocalVersionList(workingDirectory), remoteVersionList), Agent.MINECRAFT, MinecraftReleaseTypeFactory.instance(), 21);
         this.profileManager = new ProfileManager(this);
         ((SwingUserInterface)this.userInterface).initializeFrame();
         this.refreshVersionsAndProfiles();

@@ -77,7 +77,7 @@ public class LauncherConstants
     }
     
     static {
-        URL_REGISTER = constantURI("https://account.mojang.com/register");
+        URL_REGISTER = constantURI("https://account.gethydra.org/register");
         BOOTSTRAP_OUT_OF_DATE_BUTTONS = new String[] { "Go to URL", "Close" };
         LAUNCHER_OUT_OF_DATE_BUTTONS = new String[] { "Nevermind, close this launcher", "I'm sure. Reset my settings." };
         CONFIRM_PROFILE_DELETION_OPTIONS = new String[] { "Delete profile", "Cancel" };
@@ -85,15 +85,15 @@ public class LauncherConstants
         URL_FORGOT_PASSWORD_MINECRAFT = constantURI("http://help.mojang.com/customer/portal/articles/329524-change-or-forgot-password?ref=launcher");
         URL_FORGOT_MIGRATED_EMAIL = constantURI("http://help.mojang.com/customer/portal/articles/1205055-minecraft-launcher-error---migrated-account?ref=launcher");
         URL_DEMO_HELP = constantURI("https://help.mojang.com/customer/portal/articles/1218766-can-only-play-minecraft-demo?ref=launcher");
-        URL_UPGRADE_WINDOWS = constantURI("https://launcher.mojang.com/download/MinecraftInstaller.msi");
-        URL_UPGRADE_OSX = constantURI("https://launcher.mojang.com/download/Minecraft.dmg");
+        URL_UPGRADE_WINDOWS = constantURI("https://launcher.gethydra.org/download/MinecraftInstaller.msi");
+        URL_UPGRADE_OSX = constantURI("https://launcher.gethydra.org/download/Minecraft.dmg");
         PROPERTIES = getProperties();
     }
     
     public enum LauncherEnvironment
     {
         PRODUCTION(""), 
-        STAGING(" (STAGING VERSION, NOT FINAL)"), 
+        STAGING(" (STAGING VERSION, NOT FINAL)"),
         DEV(" (DEV VERSION, NOT FINAL)");
         
         private final String title;
@@ -114,7 +114,7 @@ public class LauncherConstants
         
         public LauncherProperties() {
             this.environment = LauncherEnvironment.PRODUCTION;
-            this.versionManifest = LauncherConstants.constantURL("https://launchermeta.gethydra.org/mc/game/version_manifest.json");
+            this.versionManifest = LauncherConstants.constantURL("https://launchermeta.mojang.com/mc/game/version_manifest.json");
         }
         
         public LauncherEnvironment getEnvironment() {

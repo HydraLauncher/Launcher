@@ -29,6 +29,7 @@ public class PreHashedDownloadable extends Downloadable
         }
         try {
             final HttpURLConnection connection = this.makeConnection(this.getUrl());
+            connection.setRequestProperty("User-Agent", "Hydra/0");
             final int status = connection.getResponseCode();
             if (status / 100 == 2) {
                 this.updateExpectedSize(connection);

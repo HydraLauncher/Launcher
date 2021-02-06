@@ -49,6 +49,9 @@ public class YggdrasilAuthenticationService extends HttpAuthenticationService
     protected <T extends Response> T makeRequest(final URL url, final Object input, final Class<T> classOfT) throws AuthenticationException {
         try {
             final String jsonResult = (input == null) ? this.performGetRequest(url) : this.performPostRequest(url, this.gson.toJson(input), "application/json");
+            boolean debug = false;
+            if (debug)
+                throw new AuthenticationUnavailableException(String.format("Debug response from '%s': %s", url.toString(), jsonResult));
             final T result = this.gson.fromJson(jsonResult, classOfT);
             if (result == null) {
                 return null;

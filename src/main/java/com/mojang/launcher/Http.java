@@ -43,6 +43,7 @@ public class Http
         connection.setConnectTimeout(15000);
         connection.setReadTimeout(60000);
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("User-Agent", "Hydra/0");
         final InputStream inputStream = connection.getInputStream();
         try {
             return IOUtils.toString(inputStream);

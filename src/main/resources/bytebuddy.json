@@ -1,0 +1,11 @@
+{
+  "downloads": {
+    "artifact": {
+      "path": "net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
+      "sha1": "20240291b4f14ffe986e45468b1f1a3c15edc37c",
+      "size": 3494991,
+      "url": "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar"
+    }
+  },
+  "name": "net.bytebuddy:byte-buddy:1.10.18"
+}

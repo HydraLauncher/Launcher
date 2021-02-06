@@ -280,6 +280,10 @@ public class MinecraftVersionManager implements VersionManager
                 final String filename = object.getHash().substring(0, 2) + "/" + object.getHash();
                 final File file = new File(objectsFolder, filename);
                 if (!file.isFile() || FileUtils.sizeOf(file) != object.getSize()) {
+                    //TODO: sound fix??
+                    /*String resources_url = "http://resources.download.minecraft.net/";
+                    if (version.getType().getName().equalsIgnoreCase("old_beta"))
+                        resources_url = "https://resources.gethydra.org/old_beta/";*/
                     final Downloadable downloadable = new AssetDownloadable(proxy, entry.getValue(), object, "http://resources.download.minecraft.net/", objectsFolder);
                     downloadable.setExpectedSize(object.getSize());
                     result.add(downloadable);

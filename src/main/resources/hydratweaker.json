@@ -1,0 +1,11 @@
+{
+  "downloads": {
+    "artifact": {
+      "path": "org/gethydra/tweaker/1.0/HydraTweaker-1.0.jar",
+      "sha1": "ba954d7630e2c6f111de1c94788f59d1c1e1e4ac",
+      "size": 5049,
+      "url": "https://libraries.gethydra.org/HydraTweaker/1.0/HydraTweaker-1.0.jar"
+    }
+  },
+  "name": "org.gethydra:tweaker:1.0"
+}
