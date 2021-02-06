@@ -60,6 +60,6 @@ jar
 
     manifest
     {
-        attributes 'Implementation-Title': 'Hydra', 'Implementation-Version': '1.0.0-b01', 'Main-Class': 'net.minecraft.launcher.Main'
+        attributes 'Implementation-Title': 'Hydra', 'Implementation-Version': '1.0.0-b02', 'Main-Class': 'net.minecraft.launcher.Main'
     }
 }
